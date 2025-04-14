@@ -3,7 +3,6 @@ package com.ac.firstjobapp.company.implementation;
 import com.ac.firstjobapp.company.Company;
 import com.ac.firstjobapp.company.CompanyRepository;
 import com.ac.firstjobapp.company.CompanyService;
-import com.ac.firstjobapp.job.Job;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +22,11 @@ public class CompanyServiceImplementation implements CompanyService {
     }
 
     @Override
+    public Company getCompany(Long id) {
+        return companyRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public void createCompany(Company company) {
         companyRepository.save(company);
     }
@@ -39,5 +43,15 @@ public class CompanyServiceImplementation implements CompanyService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean deleteCompany(Long id) {
+        try {
+            companyRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
